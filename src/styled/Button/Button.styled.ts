@@ -1,10 +1,11 @@
 import styled from 'styled-components';
-import { background } from '../Common/Common.styled';
+import { background, elevations, ElevationVariants } from '../Common/Common.styled';
 
 interface ButtonProps{
     /** Limited button props here, we could extend more in the future */
     color?: string;
     bg?: string;
+    elevation?: ElevationVariants;
 }
 const Button = styled.button<ButtonProps>`
     border: none;
@@ -19,21 +20,32 @@ const Button = styled.button<ButtonProps>`
     line-height: 1.75;
     letter-spacing: 0.02857em;
     padding: 6px 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: ${({theme})=> theme.radius.base+'px;'};
     ${({color})=> 'color: '+color+';'}
-    transition: transform 300ms linear;
+    transition: transform 300ms ease-in-out, background-color 300ms ease-in-out;
     &:active{
-        transform: scale(.98);
+        transform: scale(.96);
     }
 
     background-color: ${({theme})=> theme.colors.primary};
     ${background}
+    ${elevations}
 `;
 
 const FabButton = styled(Button)`
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
+    background-color: #fff;
+    color: ${({theme})=> theme.colors.primary};
+
+    &.active{
+        background-color: ${({theme})=> theme.colors.primary};
+        color: #fff;
+    }
 `;
 
 export {Button, FabButton};

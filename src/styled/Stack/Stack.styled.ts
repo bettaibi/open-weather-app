@@ -14,7 +14,6 @@ interface StackProps extends BoxProps{
     justifyContent?: flexAlignVariants;
     flexWrap?: wrapVariants;
     spacing?: number;
-    flex?: number | string;
 }
 
 const Stack = styled(Box)<StackProps>`
@@ -24,7 +23,6 @@ const Stack = styled(Box)<StackProps>`
     justify-content: ${({ justifyContent})=> justifyContent || 'flex-start'};
     flex-wrap: ${({ flexWrap})=> flexWrap || 'no-wrap'};
     gap: ${({ spacing, theme})=> spacing ? spacing * theme.spacing.base : 0}px;
-    ${({flex})=> flex && 'flex:'+flex+';'}
 `;
 
 export default Stack;

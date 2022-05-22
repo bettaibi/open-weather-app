@@ -3,9 +3,7 @@
  */
 import styled from 'styled-components';
 import { Box, BoxProps } from '../Box/Box.styled';
-import { elevations } from '../Common/Common.styled';
-
-type ElevationVariants = 0 | 1 | 2 | 3;
+import { elevations, ElevationVariants } from '../Common/Common.styled';
 
 interface PaperProps extends BoxProps {
     elevation?: ElevationVariants;
@@ -14,7 +12,7 @@ interface PaperProps extends BoxProps {
 
 const Paper = styled(Box) <PaperProps>`
     ${elevations}
-
+    
     ${({ outlined }) => outlined && 'border: 1px solid rgba(0, 0, 0, 0.12);'}
 `;
 
