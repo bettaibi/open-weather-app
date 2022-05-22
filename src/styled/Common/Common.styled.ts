@@ -7,8 +7,10 @@ import { BoxProps } from '../Box/Box.styled';
 
 type PaddingProps = Pick<BoxProps, 'p' | 'pt' | 'pb' | 'pl' | 'pr' | 'px' | 'py'>;
 type MarginProps = Pick<BoxProps, 'm' | 'mt' | 'mb' | 'ml' | 'mr' | 'mx' | 'my'>;
+type BorderProps = Pick<BoxProps, 'border' | 'borderBottom' | 'borderLeft' | 'borderRight' | 'borderTop'>;
 type ThemeColors = keyof ColorsProps;
-type ElevationProps = {elevation?: 0 | 1 | 2 | 3};
+
+export type ElevationVariants = 0 | 1 | 2 | 3;
 
 /* Paddings */
 export const paddings = css<PaddingProps>`
@@ -39,9 +41,18 @@ export const background = css<Pick<BoxProps, 'bg'>>`
 `;
 
 /* Elevation */
-export const elevations = css<ElevationProps>`
+export const elevations = css<{elevation?: ElevationVariants}>`
       ${({ elevation }) => elevation === 1 ? 'box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);'
         : elevation === 2 ? 'box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);'
             : elevation === 3 ? 'box-shadow: 0 1rem 3rem rgba(0,0,0,.175);'
                 : 'box-shadow: none;'}
+`;
+
+/** Borders */
+export const borders = css<BorderProps>`
+   ${({border}) => border && 'border:'+border+ ';'}
+   ${({borderBottom}) => borderBottom && 'border-bottom:'+borderBottom+ ';'}
+   ${({borderTop}) => borderTop && 'border-top:'+borderTop+ ';'}
+   ${({borderLeft}) => borderLeft && 'border-left:'+borderLeft+ ';'}
+   ${({borderRight}) => borderRight && 'border-right:'+borderRight+ ';'}
 `;

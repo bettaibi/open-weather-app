@@ -3,7 +3,7 @@
  * Usually, a Box element plays the role of a Container or Wrapper.
  */
 import styled from 'styled-components';
-import { background, margins, paddings } from '../Common/Common.styled';
+import { background, borders, margins, paddings } from '../Common/Common.styled';
 
 type PositionVariants = 'fixed' | 'absolute' | 'relative' | 'sticky';
 type DisplayVariant = 'block' | 'inline' | 'inline-block' | 'none';
@@ -27,9 +27,10 @@ export interface BoxProps {
 
     width?: string;
     height?: string;
+    flex?: string;
     display?: DisplayVariant;
 
-    /** 'primary, secondary', any css color code is also a valid prop */
+    /** 'primary, secondary,..', or any other css color hexa-code is also a valid prop */
     bg?: string;
 
     position?: PositionVariants;
@@ -40,6 +41,14 @@ export interface BoxProps {
     zIndex?: number;
     radius?: string;
     textAlign?: 'center' | 'right' | 'left';
+    overflow?: 'hidden' | 'auto' | 'scroll' | 'visible';
+
+    /** Shorthand borders */
+    border?: string;
+    borderBottom?: string;
+    borderTop?: string;
+    borderLeft?: string;
+    borderRight?: string;
 }
 
 
@@ -47,6 +56,7 @@ export const Box = styled.div<BoxProps>`
     ${paddings}
     ${margins}
     ${background}
+    ${borders}
 
     width: ${({ width }) => width || '100%'};
     height: ${({ height }) => height || '100%'};
@@ -62,4 +72,6 @@ export const Box = styled.div<BoxProps>`
     ${({ zIndex }) => zIndex && 'z-index: ' + zIndex + ';'}
 
     ${({ textAlign }) => textAlign && 'text-align:' + textAlign + ';'}
+    ${({flex}) => 'flex:'+flex + ';'}
+    ${({overflow}) => 'overflow:'+overflow + ';'}
 `;

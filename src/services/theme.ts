@@ -1,11 +1,11 @@
 import { DefaultTheme } from 'styled-components';
-// #f1f5f9
+// ##f8fafc 
 const theme: DefaultTheme ={
     colors: {
         primary: '#0f172a',
         secondary: '#64748B',
         accent: '#EECE1A',
-        body: '#f8fafc'
+        body: '#f1f5f9'
     },
     spacing: {
         base: 8 // same approach as Material
@@ -14,7 +14,7 @@ const theme: DefaultTheme ={
         base: 4
     },
     typography: {
-        fontSize: 14
+        fontSize: 16
     },
     breakpoints: {
         values: {
