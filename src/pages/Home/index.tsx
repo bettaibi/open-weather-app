@@ -6,7 +6,8 @@ import {
   Paper
 } from '../../styled';
 import Search from '../../components/Search';
-
+import Carousel from '../../components/Carousel';
+import DayHighlight from './DayHighlight';
 
 const Home = () => {
 
@@ -33,8 +34,14 @@ const Home = () => {
       </Box>
 
       {/* Carousel */}
-      <Box>
-
+      <Box className="spacing px" mb={2}>
+        <Carousel>
+            {
+              [1,2,3,4,5].map((item, index)=> (
+                <DayHighlight index={index} key={'e'+index} />
+              ))
+            }
+        </Carousel>
       </Box>
 
       {/* Chart */}

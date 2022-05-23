@@ -8,9 +8,9 @@ function App() {
   return (
     <Stack>
         {/* SIDEBAR */}
-        <Sidebar>
+        {/* <Sidebar>
           Some Content here
-        </Sidebar>
+        </Sidebar> */}
 
         {/* MAIN PAGE */}
         <Home />
