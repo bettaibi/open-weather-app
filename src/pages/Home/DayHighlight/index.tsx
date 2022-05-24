@@ -7,7 +7,7 @@ const DayHighlight = ({ index }: { index: number }) => {
         <Paper
             data-id={index === 3 ? 'today' : index}
             elevation={1} p={2} bg="#fff" radius="1rem"
-            flex='0 0 auto' width={'33.33%'} style={{ minWidth: '200px' }}
+            flex='1 0 auto' width={'33.33%'} style={{ minWidth: '200px' }}
             className={index === 3 ? 'active' : ''}
         >
             <h1>Card {index}</h1>

@@ -8,7 +8,8 @@ const spring = {
     damping: 10,
     stiffness: 100
 };
-let elemWidth = 200; // minWidth
+
+let cardWidth = 200; // minWidth
 
 const Carousel = ({ children }: { children: React.ReactNode }) => {
     const breakpoint = useBreakpoint();
@@ -21,32 +22,33 @@ const Carousel = ({ children }: { children: React.ReactNode }) => {
     useLayoutEffect(() => {
         if (wrapperRef.current) {
             const boundary = wrapperRef.current?.scrollWidth - wrapperRef.current?.offsetWidth;
-            elemWidth = (wrapperRef.current!.querySelector('[data-id="today"]')?.getBoundingClientRect().width || elemWidth);
+            cardWidth = (wrapperRef.current!.querySelector('[data-id="today"]')?.getBoundingClientRect().width || cardWidth);
             setLeftBoundary(boundary);
         }
     }, [breakpoint, wrapperRef]);
 
-    /** Centred "today forecast" Card */
+    /** Centred "today's forecast" Card */
     useLayoutEffect(() => {
         
         if (!wrapperRef.current) return;
-        let elem = wrapperRef.current?.querySelector('[data-id="today"]')!.getBoundingClientRect();
-        if(!elem) return;
 
-        let targetX = elemWidth + 48 + 40 + 16; // paddings + arrows width + gap
-        setCurrentX(-(elem.left - targetX));
+        /** Wrapper and Card X positions relative to the left corner position of the window */
+        const targetCardPosition = wrapperRef.current?.querySelector('[data-id="today"]')!.getBoundingClientRect().left;
+        const wrapperPosition = wrapperRef.current?.getBoundingClientRect().left;
+        /** Compute diff, and skip one card in order to make today's forecast card centred */
+        const diff = (targetCardPosition - wrapperPosition) - cardWidth;
+        setCurrentX(-diff);
 
     }, []);
 
-
     async function next() {
         try {
-            const newXValue = (currentX - elemWidth);
+            const newXValue = (currentX - cardWidth);
             if (Math.abs(newXValue) < leftBoundary) {
                 setCurrentX(newXValue);
             }
             else {
-                setCurrentX(-leftBoundary);
+                setCurrentX(-(leftBoundary + 16));
             }
         }
         catch (err) {
@@ -56,7 +58,7 @@ const Carousel = ({ children }: { children: React.ReactNode }) => {
 
     async function pervious() {
         try {
-            const newXValue = (currentX + elemWidth);
+            const newXValue = (currentX + cardWidth);
             if (newXValue < 0) {
                 setCurrentX(newXValue);
             }
@@ -68,7 +70,6 @@ const Carousel = ({ children }: { children: React.ReactNode }) => {
             console.error(err)
         }
     }
-
 
     return (
         <Box px={isMobile ? 0 : 6} position="relative">
@@ -94,7 +95,7 @@ const Carousel = ({ children }: { children: React.ReactNode }) => {
                     <>
                         <AnimatePresence>
                             { currentX < 0 &&
-                                <Stack position="absolute" left="0" top="0" alignItems="center" width="fit-content">
+                                <Stack position="absolute" bottom="0" left="0" top="0" alignItems="center" width="fit-content">
                                     <FabButton as={motion.button} elevation={1} onClick={pervious}
                                         initial={{ scale: 0 }}
                                         animate={{ scale: 1 }}
@@ -107,7 +108,7 @@ const Carousel = ({ children }: { children: React.ReactNode }) => {
 
                         <AnimatePresence>
                             { -(currentX) < leftBoundary &&
-                                <Stack position="absolute" right="0" top="0" alignItems="center"
+                                <Stack position="absolute"  bottom="0" right="0" top="0" alignItems="center"
                                     width="fit-content">
                                     <FabButton as={motion.button} elevation={1} onClick={next}
                                         initial={{ scale: 0 }}

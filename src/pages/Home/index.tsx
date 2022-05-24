@@ -1,36 +1,34 @@
 import React from 'react';
 import {
   Box,
+  Main,
   Stack,
-  FabButton,
   Paper
 } from '../../styled';
 import Search from '../../components/Search';
 import Carousel from '../../components/Carousel';
 import DayHighlight from './DayHighlight';
+import { HomeProps } from '../../models/app.model';
+import Units from '../../components/Units';
 
-const Home = () => {
+const Home: React.FC<HomeProps> = ({text, setText, unit, setUnit}) => {
 
   return (
-    <Box as="main">
+    <Main>
       {/* Header */}
       <Box as="header" bg="#fff" className="spacing px" py={3} height="128px"
         borderBottom="1px solid rgba(0,0,0,.12)">
-        <Stack spacing={2} >
-          <Search />
 
-          <Stack spacing={2} justifyContent="flex-end">
-            <FabButton className="active" elevation={1}>℃</FabButton>
-            <FabButton elevation={1}>℉</FabButton>
-          </Stack>
-
+        <Stack spacing={2}>
+          <Search text = {text} setText = {setText} />
+          <Units unit = {unit} setUnit = {setUnit} />
         </Stack>
       </Box>
 
       <Box className="spacing mx px" bg="body" py={1} width="fit-content"
         radius="1rem 1rem 0 0" position="relative" top="-36px"
         border="1px solid rgba(0,0,0,.12)" borderBottom="0">
-        Forecast for Tunis
+        Forecast for {(text || 'Tunis')}
       </Box>
 
       {/* Carousel */}
@@ -50,7 +48,7 @@ const Home = () => {
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero ducimus a laborum nemo beatae error, quasi qui nostrum sed, repellendus aspernatur delectus! Minima dolorem nesciunt velit? Similique modi vitae architecto.
         </Paper>
       </Box>
-    </Box>
+    </Main>
   )
 }
 

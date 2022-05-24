@@ -58,8 +58,8 @@ export const Box = styled.div<BoxProps>`
     ${background}
     ${borders}
 
-    width: ${({ width }) => width || '100%'};
-    height: ${({ height }) => height || '100%'};
+    ${({ width }) => width && 'width: ' + width + ';'}
+    ${({ height }) => height && 'height: ' + height + ';'}
 
     ${({ display }) => display && 'display: ' + display + ';'}
     ${({ radius }) => radius && 'border-radius: ' + radius + ';'}
@@ -72,6 +72,15 @@ export const Box = styled.div<BoxProps>`
     ${({ zIndex }) => zIndex && 'z-index: ' + zIndex + ';'}
 
     ${({ textAlign }) => textAlign && 'text-align:' + textAlign + ';'}
-    ${({flex}) => 'flex:'+flex + ';'}
-    ${({overflow}) => 'overflow:'+overflow + ';'}
+    ${({ flex }) => 'flex:' + flex + ';'}
+    ${({ overflow }) => 'overflow:' + overflow + ';'}
+`;
+
+export const Main = styled.main`
+    
+    width: calc(100vw - 300px) !important;
+
+    @media (max-width: 768px) {
+            width: 100% !important;
+    }
 `;
