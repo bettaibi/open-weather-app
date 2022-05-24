@@ -3,11 +3,9 @@ import { UNITS } from '../../../models/app.model';
 import Units from './..';
 import WithStyledThemeProvider from '../../../hoc/WithStyledThemeProvider';
 
-const mockFunc = jest.fn;
-
 const MockedComponent = WithStyledThemeProvider(()=> {
     return(
-        <Units unit = {UNITS.CELSIUS} setUnit = {mockFunc} />
+        <Units unit = {UNITS.CELSIUS} />
     )
 });
 

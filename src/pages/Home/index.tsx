@@ -8,10 +8,10 @@ import {
 import Search from '../../components/Search';
 import Carousel from '../../components/Carousel';
 import DayHighlight from './DayHighlight';
-import { HomeProps } from '../../models/app.model';
 import Units from '../../components/Units';
+import { UnitProps } from '../../models/app.model';
 
-const Home: React.FC<HomeProps> = ({text, setText, unit, setUnit}) => {
+const Home = ({text, unit}: {text: string, unit: UnitProps}) => {
 
   return (
     <Main>
@@ -20,8 +20,8 @@ const Home: React.FC<HomeProps> = ({text, setText, unit, setUnit}) => {
         borderBottom="1px solid rgba(0,0,0,.12)">
 
         <Stack spacing={2}>
-          <Search text = {text} setText = {setText} />
-          <Units unit = {unit} setUnit = {setUnit} />
+          <Search text = {text} />
+          <Units unit = {unit} />
         </Stack>
       </Box>
 

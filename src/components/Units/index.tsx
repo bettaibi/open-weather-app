@@ -1,15 +1,18 @@
 import React from 'react';
 import Stack from '../../styled/Stack/Stack.styled';
 import { FabButton } from '../../styled/Button/Button.styled';
-import { UnitsProps, UNITS, UnitProps } from '../../models/app.model';
+import { UNITS, UnitProps } from '../../models/app.model';
+import { useAppDispatch } from '../../store/hooks';
+import { updateUnit } from '../../store/unit/unitSlice';
 import classNames from 'classnames';
 
-const Units: React.FC<UnitsProps> = ({ unit, setUnit }) => {
+const Units = ({ unit }: {unit: UnitProps}) => {
     const celsius = unit === UNITS.CELSIUS;
     const fahrenheit = unit === UNITS.FAHRENHEIT;
+    const dispatch = useAppDispatch();
 
     function handleChange(input: UnitProps) {
-        setUnit(input);
+        dispatch(updateUnit(input));
     }
 
     return (
