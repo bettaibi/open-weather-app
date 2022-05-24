@@ -1,12 +1,19 @@
-import { useState } from 'react';
+import React from 'react';
+import { SearchProps } from '../../models/app.model';
 import TextField from '../../styled/TextField/TextField.styled';
 
-const Search = () => {
-    const [text, setText] = useState<string>('');
-
+const Search: React.FC<SearchProps> = ({text, setText}) => {
+    let value = text;
+    
     function handleChange(e: React.ChangeEvent<HTMLInputElement>){
-        const value = e.target.value;
-        setText(value)
+        value = e.target.value;
+    }
+
+    /** prevent unnecessary rendering, Search will be performed only when tapping the Enter button */
+    const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if(event.key === 'Enter'){
+            setText(value);
+        }
     }
 
     return (
@@ -15,10 +22,10 @@ const Search = () => {
             variant="rounded"
             type="search"
             placeholder="Search for a city"
-            value={text}
             onChange={handleChange}
+            onKeyPress={handleKeyPress}
         />
     )
 }
 
-export default Search;
+export default React.memo(Search);

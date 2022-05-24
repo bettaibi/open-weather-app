@@ -4,7 +4,8 @@ import { Box } from '../../styled';
 const Sidebar = ({children}: {children: React.ReactNode}) => {
 
     return (
-        <Box as="aside" flex="0 0 300px" bg="primary" height='100vh'>
+        <Box as="aside" bg="primary" height='100vh' position="sticky" top="0"
+         flex="0 0 300px">
             {children}
         </Box>
     )

@@ -1,5 +1,5 @@
 /**
- * Reusable CSS Chunks
+ * Reusable CSS Chunks (Common Style)
  */
 import { css } from 'styled-components';
 import { ColorsProps } from '../../services/styled';
