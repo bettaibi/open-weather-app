@@ -1,33 +1,44 @@
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
+
+// App State
+import { STATUS } from './models/app.model';
+import { selectStatus, selectForecastFor } from './store/weatherForecast/weatherForecastSlice';
+import { selectUnit } from './store/unit/unitSlice';
+import { selectCity } from './store/city/citySlice';
+import { fetchWeatherForcast } from './store/weatherForecast/weatherForecast.actions';
+import { useAppSelector, useAppDispatch } from './store/hooks';
+// components
 import Home from './pages/Home';
 import Sidebar from './components/Sidebar';
 import Stack from './styled/Stack/Stack.styled';
-import axios from "axios";
-import { config } from './services/config';
-import { UNITS, UnitProps } from './models/app.model';
-
-const url = "https://api.openweathermap.org/data/2.5/forecast";
 
 function App() {
-  const [city, setCity] = useState<string>('');
-  const [unit, setUnit] = useState<UnitProps>(UNITS.CELSIUS);
+  const dispatch = useAppDispatch();
+
+  const city = useAppSelector(selectCity);
+  const unit = useAppSelector(selectUnit);
+  const status = useAppSelector(selectStatus);
+  // const weatherForecast = useAppSelector(state => selectForecastFor(state, city+unit));
+  
+  // console.log(weatherForecast)
+
 
   useEffect(()=> {
 
-    // fetchWeatherForcast(city || 'tunis', unit);
+    if(status === STATUS.IDLE){
+      // dispatch(fetchWeatherForcast({city: city || 'tunis', unit}));
+    }
+
   }, [city, unit]);
 
-  const fetchWeatherForcast = async (city: string, unit: UnitProps) => {
-    try{
-      const res = await axios.get(url, { params: { q: city, units: unit, appid: config.WEATHER_FORCAST_APPID } });
-      if(res.status === 200){
+  if(status === STATUS.LOADING){
+    return (
+      <span>LOADING ....</span>
+    )
+  }
 
-        console.log(res.data)
-      }
-    }
-    catch(err){
-      throw err;
-    }
+  if(status === STATUS.FAILED){
+    return <span>Fallback ui</span>
   }
 
   return (
@@ -40,9 +51,7 @@ function App() {
       {/* MAIN PAGE */}
       <Home 
         text={city} 
-        setText = {setCity} 
         unit = {unit}
-        setUnit = {setUnit}
       />
 
     </Stack>

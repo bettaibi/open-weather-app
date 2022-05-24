@@ -1,18 +1,23 @@
 import React from 'react';
-import { SearchProps } from '../../models/app.model';
+import { updateCity } from '../../store/city/citySlice';
+import { useAppDispatch } from '../../store/hooks';
 import TextField from '../../styled/TextField/TextField.styled';
 
-const Search: React.FC<SearchProps> = ({text, setText}) => {
+const Search = ({text}: {text: string}) => {
+    /**
+     * We use In memory "value" rather than useState hook (to trigger input value changes),
+     * to prevent unnecessary rendering, since the search will be performed only when pressing the Enter Button.
+     */ 
     let value = text;
+    const dispatch = useAppDispatch();
     
     function handleChange(e: React.ChangeEvent<HTMLInputElement>){
         value = e.target.value;
     }
 
-    /** prevent unnecessary rendering, Search will be performed only when tapping the Enter button */
     const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if(event.key === 'Enter'){
-            setText(value);
+            dispatch(updateCity(value));
         }
     }
 
