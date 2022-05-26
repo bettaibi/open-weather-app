@@ -1,7 +1,7 @@
 import {useEffect} from 'react';
 
 // App State
-import { STATUS } from './models/app.model';
+import { STATUS, WeatherForecastPayload } from './models/app.model';
 import { selectStatus, selectForecastFor } from './store/weatherForecast/weatherForecastSlice';
 import { selectUnit } from './store/unit/unitSlice';
 import { selectCity } from './store/city/citySlice';
@@ -11,29 +11,30 @@ import { useAppSelector, useAppDispatch } from './store/hooks';
 import Home from './pages/Home';
 import Sidebar from './components/Sidebar';
 import Stack from './styled/Stack/Stack.styled';
+import TodayHighlight from './pages/TodayHighlight';
+import Loading from './components/Loading';
 
 function App() {
   const dispatch = useAppDispatch();
 
   const city = useAppSelector(selectCity);
   const unit = useAppSelector(selectUnit);
+  const weatherForecast = useAppSelector<WeatherForecastPayload>(state => selectForecastFor(state, city+unit));
   const status = useAppSelector(selectStatus);
-  // const weatherForecast = useAppSelector(state => selectForecastFor(state, city+unit));
   
-  // console.log(weatherForecast)
-
+  console.log(weatherForecast)
 
   useEffect(()=> {
 
-    if(status === STATUS.IDLE){
-      // dispatch(fetchWeatherForcast({city: city || 'tunis', unit}));
+    if(!weatherForecast){
+      dispatch(fetchWeatherForcast({city, unit}));
     }
 
   }, [city, unit]);
 
-  if(status === STATUS.LOADING){
+  if(status === STATUS.LOADING || status === STATUS.IDLE || !weatherForecast){
     return (
-      <span>LOADING ....</span>
+      <Loading />
     )
   }
 
@@ -45,15 +46,16 @@ function App() {
     <Stack>
       {/* SIDEBAR */}
       <Sidebar>
-        Some Content here
+        <TodayHighlight city={weatherForecast.city} list={weatherForecast.list} />
       </Sidebar>
 
       {/* MAIN PAGE */}
-      <Home 
+     <Home 
         text={city} 
         unit = {unit}
+        city={weatherForecast.city} 
+        list={weatherForecast.list}
       />
-
     </Stack>
   );
 }

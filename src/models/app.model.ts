@@ -2,24 +2,25 @@
  * Redux AppState
  */
 
-export enum UNITS{
-    CELSIUS = 'metric', 
+export enum UNITS {
+    CELSIUS = 'metric',
     FAHRENHEIT = 'imperial'
 };
 
-export enum STATUS{
+export enum STATUS {
     IDLE = 'idle',
-    LOADING =  'loading',
+    LOADING = 'loading',
     SUCCEEDED = 'succeeded',
     FAILED = 'failed'
 }
 
-export type StatusProps =  STATUS.IDLE | STATUS.LOADING | STATUS.SUCCEEDED | STATUS.FAILED;
+export type StatusProps = STATUS.IDLE | STATUS.LOADING | STATUS.SUCCEEDED | STATUS.FAILED;
 export type UnitProps = UNITS.CELSIUS | UNITS.FAHRENHEIT;
 
-export interface DayProps{
+export interface WeatherForecastDayProps {
     dt: number;
     dt_txt: string;
+    clouds: {all: number};
     main: {
         feels_like: number;
         grnd_level: number;
@@ -41,18 +42,18 @@ export interface DayProps{
         main: string;
     }]
 }
-
+export interface WeatherForecastCityProps {
+    name: string;
+    sunrise: number;
+    sunset: number;
+}
 export type WeatherForecastPayload = {
-    city: {
-        name: string;
-        sunrise: number;
-        sunset: number;
-    };
-    list: DayProps[];
+    city: WeatherForecastCityProps;
+    list: WeatherForecastDayProps[];
 }
 
 /* Normalized Response */
-export interface NormalizedEntities{
+export interface NormalizedEntities {
     [id: string]: any;
 }
 
@@ -61,3 +62,15 @@ export interface WeatherForecastState {
     status: StatusProps;
     error?: string;
 }
+
+
+/** Common Types **/
+export interface HomeProps{
+    text: string,
+    unit: UnitProps;
+    list: WeatherForecastDayProps[];
+    city: WeatherForecastCityProps;
+    weekDays?: WeatherForecastDayProps[];
+}
+
+export type Breakpoints = 'xs' | 'sm' | 'md' | 'lg' | '';

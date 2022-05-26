@@ -1,12 +1,11 @@
 import React from 'react';
 import throttle from 'lodash.throttle';
-
-type Breakpoints = 'xs' | 'sm' | 'md' | 'lg' | '';
+import { Breakpoints } from '../models/app.model';
 
 function useBreakpoint() {
     const [breakpoint, setBreakpoint] = React.useState<Breakpoints>('');
 
-    React.useEffect(() => {
+    React.useLayoutEffect(() => {
         window.addEventListener('resize', computeInnerWidth);
 
         return () => {
@@ -14,7 +13,7 @@ function useBreakpoint() {
         };
     }, []);
 
-    React.useEffect(() => {
+    React.useLayoutEffect(() => {
         const bk = getDeviceConfig(window.innerWidth);
         setBreakpoint(bk as Breakpoints);
     }, []);

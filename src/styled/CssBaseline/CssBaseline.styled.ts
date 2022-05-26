@@ -17,6 +17,7 @@ const CssBaseline = createGlobalStyle`
     body{
         font-family: 'Roboto', sans-serif;
         margin: 0;
+        overflow: hidden;
         color: ${({ theme }) => theme.colors.primary};
         background-color: ${({ theme }) => theme.colors.body};
     }

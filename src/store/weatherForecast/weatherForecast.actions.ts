@@ -14,11 +14,7 @@ export const fetchWeatherForcast = createAsyncThunk('weatherForecast/fetchWeathe
  async ({city, unit}: {city: string, unit: UnitProps}) => {
     try {
         const res = await axios.get(url, { params: { q: city, units: unit, appid } });
-        
-        if (res.status === 200) {
-            return res.data;
-        }
-        return {};
+        return res.data;
     }
     catch (err) {
         return err;

@@ -2,6 +2,8 @@ import { useState, useLayoutEffect, useRef } from 'react';
 import { Box, Stack, FabButton } from '../../styled';
 import { motion, AnimatePresence } from "framer-motion";
 import useBreakpoint from '../../hooks/useBreakpoint';
+import Hidden from '../Hidden';
+import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 
 const spring = {
     type: "spring",
@@ -29,11 +31,12 @@ const Carousel = ({ children }: { children: React.ReactNode }) => {
 
     /** Centred "today's forecast" Card */
     useLayoutEffect(() => {
-        
+
         if (!wrapperRef.current) return;
 
-        /** Wrapper and Card X positions relative to the left corner position of the window */
-        const targetCardPosition = wrapperRef.current?.querySelector('[data-id="today"]')!.getBoundingClientRect().left;
+        /** Wrapper and Card X positions are relative to the left corner position of the window */
+        const targetCardPosition = wrapperRef.current?.querySelector('[data-id="today"]')?.getBoundingClientRect().left;
+        if (!targetCardPosition) return;
         const wrapperPosition = wrapperRef.current?.getBoundingClientRect().left;
         /** Compute diff, and skip one card in order to make today's forecast card centred */
         const diff = (targetCardPosition - wrapperPosition) - cardWidth;
@@ -43,7 +46,7 @@ const Carousel = ({ children }: { children: React.ReactNode }) => {
 
     async function next() {
         try {
-            const newXValue = (currentX - cardWidth);
+            const newXValue = currentX - cardWidth;
             if (Math.abs(newXValue) < leftBoundary) {
                 setCurrentX(newXValue);
             }
@@ -58,7 +61,7 @@ const Carousel = ({ children }: { children: React.ReactNode }) => {
 
     async function pervious() {
         try {
-            const newXValue = (currentX + cardWidth);
+            const newXValue = currentX + cardWidth;
             if (newXValue < 0) {
                 setCurrentX(newXValue);
             }
@@ -90,38 +93,43 @@ const Carousel = ({ children }: { children: React.ReactNode }) => {
                 </Stack>
             </Box>
             {/* Arrow Button (Buttons are hidden in mobile representation) */}
-            {
-                !isMobile && (
-                    <>
-                        <AnimatePresence>
-                            { currentX < 0 &&
-                                <Stack position="absolute" bottom="0" left="0" top="0" alignItems="center" width="fit-content">
-                                    <FabButton as={motion.button} elevation={1} onClick={pervious}
-                                        initial={{ scale: 0 }}
-                                        animate={{ scale: 1 }}
-                                        exit={{ scale: 0 }}
-                                    >S</FabButton>
-                                </Stack>
-                            }
-                        </AnimatePresence>
+
+            <Hidden hiddenFor={['xs', 'sm']}>
+
+                <AnimatePresence>
+                    {currentX < 0 &&
+                        <Stack position="absolute" bottom="0" left="0" top="0" alignItems="center" width="fit-content">
+                            <FabButton as={motion.button} elevation={1} onClick={pervious}
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                exit={{ scale: 0 }}
+                                data-testid="prev-btn"
+                            >
+                                <FaAngleLeft />
+                            </FabButton>
+                        </Stack>
+                    }
+                </AnimatePresence>
 
 
-                        <AnimatePresence>
-                            { -(currentX) < leftBoundary &&
-                                <Stack position="absolute"  bottom="0" right="0" top="0" alignItems="center"
-                                    width="fit-content">
-                                    <FabButton as={motion.button} elevation={1} onClick={next}
-                                        initial={{ scale: 0 }}
-                                        animate={{ scale: 1 }}
-                                        exit={{ scale: 0 }}
-                                    >M</FabButton>
-                                </Stack>
-                            }
-                        </AnimatePresence>
+                <AnimatePresence>
+                    {-(currentX) < leftBoundary &&
+                        <Stack position="absolute" bottom="0" right="0" top="0" alignItems="center"
+                            width="fit-content" data-testid="next-btn">
+                            <FabButton as={motion.button} elevation={1} onClick={next}
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                exit={{ scale: 0 }}
+                                
+                            >
+                                <FaAngleRight />
+                            </FabButton>
+                        </Stack>
+                    }
+                </AnimatePresence>
 
-                    </>
-                )
-            }
+            </Hidden>
+
         </Box>
     )
 }

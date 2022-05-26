@@ -23,12 +23,10 @@ export const weatherForecastSlice = createSlice({
             state.status = STATUS.LOADING;
         })
         .addCase(fetchWeatherForcast.fulfilled, (state: WeatherForecastState, action: PayloadAction<WeatherForecastPayload, string, any>) => {
-            // state.status = 'succeeded';
             const id = action.meta.arg.city + action.meta.arg.unit;
             const {city, list} = action.payload;
             state.entities[id] = {city, list};
-            state.status = STATUS.IDLE;
-            
+            state.status = STATUS.SUCCEEDED;
         })
         .addCase(fetchWeatherForcast.rejected, (state: WeatherForecastState, action) => {
             state.status = STATUS.FAILED
@@ -45,7 +43,7 @@ const selectEntities = (State: RootState) => State.weatherForecast.entities;
  * Reselect, creating memoized selector for better performance.
  */
 export const selectForecastFor = createSelector(
-    [selectEntities, (entityId: string) => entityId],
+    [selectEntities, (State, entityId: string) => entityId],
 
     (entities, entityId) => entities[entityId]
 )
