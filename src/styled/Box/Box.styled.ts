@@ -3,28 +3,13 @@
  * Usually, a Box element plays the role of a Container or Wrapper.
  */
 import styled from 'styled-components';
+import { BorderProps, MarginProps, PaddingProps } from '../../models/styled.model';
 import { background, borders, margins, paddings } from '../Common/Common.styled';
 
 type PositionVariants = 'fixed' | 'absolute' | 'relative' | 'sticky';
 type DisplayVariant = 'block' | 'inline' | 'inline-block' | 'none';
 
-export interface BoxProps {
-    p?: number;
-    pt?: number;
-    pb?: number;
-    pl?: number;
-    pr?: number;
-    px?: number;
-    py?: number;
-
-    m?: number;
-    mt?: number;
-    mb?: number;
-    ml?: number;
-    mr?: number;
-    mx?: number;
-    my?: number;
-
+export interface BoxProps extends PaddingProps, MarginProps, BorderProps {
     width?: string;
     height?: string;
     flex?: string;
@@ -42,15 +27,7 @@ export interface BoxProps {
     radius?: string;
     textAlign?: 'center' | 'right' | 'left';
     overflow?: 'hidden' | 'auto' | 'scroll' | 'visible';
-
-    /** Shorthand borders */
-    border?: string;
-    borderBottom?: string;
-    borderTop?: string;
-    borderLeft?: string;
-    borderRight?: string;
 }
-
 
 export const Box = styled.div<BoxProps>`
     ${paddings}
@@ -74,13 +51,4 @@ export const Box = styled.div<BoxProps>`
     ${({ textAlign }) => textAlign && 'text-align:' + textAlign + ';'}
     ${({ flex }) => 'flex:' + flex + ';'}
     ${({ overflow }) => 'overflow:' + overflow + ';'}
-`;
-
-export const Main = styled.main`
-    
-    width: calc(100vw - 300px) !important;
-
-    @media (max-width: 768px) {
-            width: 100% !important;
-    }
 `;

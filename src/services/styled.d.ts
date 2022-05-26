@@ -4,6 +4,7 @@ export type ColorsProps = {
     primary: string;
     secondary: string;
     accent: string;
+    light: string;
     body: string;
 };
 

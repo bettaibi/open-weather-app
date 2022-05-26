@@ -5,6 +5,7 @@ const theme: DefaultTheme ={
         primary: '#0f172a',
         secondary: '#64748B',
         accent: '#EECE1A',
+        light: '#fff',
         body: '#f1f5f9'
     },
     spacing: {

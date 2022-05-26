@@ -1,15 +1,16 @@
-import { render, cleanup, screen} from '@testing-library/react';
+import { render, cleanup, screen } from '@testing-library/react';
 import { UNITS } from '../../../models/app.model';
 import Units from './..';
 import WithStyledThemeProvider from '../../../hoc/WithStyledThemeProvider';
+import WithReduxProvider from '../../../hoc/WithReduxProvider';
 
-const MockedComponent = WithStyledThemeProvider(()=> {
+const MockedComponent = WithStyledThemeProvider(WithReduxProvider(()=> {
     return(
         <Units unit = {UNITS.CELSIUS} />
     )
-});
+}));
 
-describe('Test Unit Component', () => {
+describe('Test tempture Units Component', () => {
 
     beforeEach(() => cleanup());
 

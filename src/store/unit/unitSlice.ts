@@ -16,8 +16,6 @@ export const unitSlice = createSlice({
 
 export const { updateUnit } = unitSlice.actions;
 
-// CRAETER A CITY SELECTOR
-
 export const selectUnit = (state: RootState) => state.unit;
 
 export default unitSlice.reducer;

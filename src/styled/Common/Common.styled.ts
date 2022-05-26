@@ -40,6 +40,13 @@ export const background = css<Pick<BoxProps, 'bg'>>`
         : 'background-color:' + bg + ';'}
 `;
 
+/** Colors */
+export const colors = css<{color?: string}>`
+    ${({ color, theme }) => color &&
+        theme.colors[color as ThemeColors] ? 'color:' + theme.colors[color as ThemeColors] + ';'
+        : 'color:' + color + ';'}
+`;
+
 /* Elevation */
 export const elevations = css<{elevation?: ElevationVariants}>`
       ${({ elevation }) => elevation === 1 ? 'box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);'
