@@ -13,6 +13,7 @@ import Sidebar from './components/Sidebar';
 import Stack from './styled/Stack/Stack.styled';
 import TodayHighlight from './pages/TodayHighlight';
 import Loading from './components/Loading';
+import Fallback from './components/Fallback/Fallback';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -27,19 +28,31 @@ function App() {
   useEffect(()=> {
 
     if(!weatherForecast){
-      dispatch(fetchWeatherForcast({city, unit}));
+      fetchWeather();
     }
 
   }, [city, unit]);
+
+  async function fetchWeather() {
+    try{
+      const res = await dispatch(fetchWeatherForcast({city, unit})).unwrap();
+    }
+    catch(err: any){
+      console.log(err)
+      return (
+        <Fallback errorMessage= {err?.message} />
+      )
+    }
+  }
 
   if(status === STATUS.LOADING || status === STATUS.IDLE || !weatherForecast){
     return (
       <Loading />
     )
   }
-
+ 
   if(status === STATUS.FAILED){
-    return <span>Fallback ui</span>
+    return <Fallback />
   }
 
   return (
@@ -50,7 +63,7 @@ function App() {
       </Sidebar>
 
       {/* MAIN PAGE */}
-     <Home 
+     <Home
         text={city} 
         unit = {unit}
         city={weatherForecast.city} 

@@ -12,7 +12,7 @@ const MockedComponent = WithStyledThemeProvider(() => {
 
 describe('Test Sidebar Component', () => {
 
-    beforeEach(() => cleanup());
+    afterEach(() => cleanup())
 
     it('should render its children correctly on the screen', async() => {
         render(<MockedComponent />);

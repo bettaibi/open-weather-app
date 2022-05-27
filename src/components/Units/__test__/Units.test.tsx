@@ -12,7 +12,7 @@ const MockedComponent = WithStyledThemeProvider(WithReduxProvider(()=> {
 
 describe('Test tempture Units Component', () => {
 
-    beforeEach(() => cleanup());
+    afterEach(() => cleanup())
 
     it('should render Celsius as the default temperature unit', () => {
         render(<MockedComponent />);

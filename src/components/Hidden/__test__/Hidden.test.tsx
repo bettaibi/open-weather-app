@@ -11,7 +11,7 @@ const MockedComponent = () => {
 
 describe('Test Hidden Component', () => {
 
-    beforeEach(() => cleanup());
+    afterEach(() => cleanup())
 
     it('should render properly on laptop, desktop and large screen devices', async() => {
         render(<MockedComponent />);

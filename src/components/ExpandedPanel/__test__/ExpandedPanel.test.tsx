@@ -28,7 +28,7 @@ const MockedComponent = WithStyledThemeProvider(() => {
 
 describe('Test ExpandedPanel Component', () => {
 
-    beforeEach(() => cleanup());
+    afterEach(() => cleanup())
 
     it('Panel area should be hidden at the initial rendering', async() => {
         render(<MockedComponent />);

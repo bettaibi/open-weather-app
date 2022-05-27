@@ -1,4 +1,5 @@
 import React from 'react';
+import Fallback from '../Fallback/Fallback';
 
 interface ErrorBoundaryProps{
     hasError: boolean;
@@ -23,7 +24,7 @@ export class ErrorBoundary extends React.Component<any, ErrorBoundaryProps> {
     render(): React.ReactNode {
         if (this.state.hasError) {
             // You can render any custom fallback UI
-            return <h1>Oops, Something went wrong.</h1>;
+            return <Fallback />;
         }
         
         return this.props.children;

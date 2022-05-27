@@ -1,9 +1,24 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
+/**
+  App: Integration tests.
+  Test how components interact with each other.
+*/
+import { render, screen, cleanup } from '@testing-library/react';
 import App from './App';
+import WithStyledThemeProvider from './hoc/WithStyledThemeProvider';
+import WithReduxProvider from './hoc/WithReduxProvider';
 
-test('renders learn react link', () => {
-  // render(<App />);
-  // const linkElement = screen.getByText(/learn react/i);
-  // expect(linkElement).toBeInTheDocument();
+const MockedComponent = WithStyledThemeProvider(WithReduxProvider(()=> {
+  return(
+      <App />
+  )
+}));
+
+describe("App Integration Test", () => {
+
+  afterEach(() => cleanup());
+
+  it("Should shows loading Component at the first rendering", ()=> {
+
+  });
+  
 });

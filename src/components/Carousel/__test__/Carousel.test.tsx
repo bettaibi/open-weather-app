@@ -27,7 +27,7 @@ const MockedComponent = WithStyledThemeProvider(() => {
 
 describe('Test Carousel Component', () => {
 
-    beforeEach(() => cleanup());
+    afterEach(() => cleanup())
 
     // it('Only 3 cards should be visible on the screen', async () => {
     //     const {getAllByTestId} = render(<MockedComponent />);

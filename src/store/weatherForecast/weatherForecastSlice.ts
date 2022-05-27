@@ -38,7 +38,6 @@ export const weatherForecastSlice = createSlice({
 // Selectors
 export const selectStatus = (state: RootState) => state.weatherForecast.status;
 const selectEntities = (State: RootState) => State.weatherForecast.entities;
-
 /**
  * Reselect, creating memoized selector for better performance.
  */
