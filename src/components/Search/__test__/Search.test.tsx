@@ -11,7 +11,7 @@ const MockedComponent = WithStyledThemeProvider(WithReduxProvider(()=> {
 
 describe('Test Input Search Component', () => {
 
-    beforeEach(() => cleanup());
+    afterEach(() => cleanup())
 
     it('should render with an empty text value at the initial rendering', () => {
         render(<MockedComponent />);

@@ -12,7 +12,7 @@ const spring = {
     stiffness: 100
 };
 const MobileSidebar = ({ children }: { children: React.ReactNode }) => {
-    const width = window.innerWidth - 100;
+    const width = window.innerWidth - 25;
     const x = useMotionValue(-width);
     const controls = useAnimation();
 
@@ -54,7 +54,8 @@ const MobileSidebar = ({ children }: { children: React.ReactNode }) => {
             animate={controls}
             >
             
-             <Box height="100%" width="100%" bg="primary">
+             <Box height="100%" width="100%" bg="primary" 
+                style={{overflowY: 'auto', minHeight:'100vh'}}>
                  {children}
              </Box>
 
@@ -63,7 +64,7 @@ const MobileSidebar = ({ children }: { children: React.ReactNode }) => {
                  onPan={(e:MotionEvent, pointInfo: PanInfo) => panHandler(e, pointInfo)}
                  onPanEnd={(e:MotionEvent, pointInfo: PanInfo) => panEndHandler(pointInfo)}
                  style={{touchAction: 'none', zIndex: 99999999,
-                 display:'flex', alignItems: "center", width: "18px", height: "100%"}}
+                 display:'flex', alignItems: "center", width: "30px", height: "100%"}}
               >
                  {/* Indicator */}
                  <Box width="10px" bg="primary" height="180px" radius="0 1rem 1rem 0" />

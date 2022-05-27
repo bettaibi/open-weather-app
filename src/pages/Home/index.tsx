@@ -16,7 +16,6 @@ import DaysOverview from './DaysOverview';
 
 const Home: React.FC<HomeProps> = ({text, unit, list, city}) => {
   const weekDays = getDaysOfWeek(list);
-  console.log(weekDays)
   const id = useId();
 
   return (
