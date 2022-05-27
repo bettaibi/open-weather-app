@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Button } from '../../styled';
 import { Typography } from '../../styled/Typography/Typography.styled';
 
-const Fallback = ({ errorMessage }: { errorMessage?: string }) => {
+const ErrorFallback = ({ errorMessage }: { errorMessage?: string }) => {
 
     function handleClick(){
         window.location.reload();
@@ -20,4 +20,4 @@ const Fallback = ({ errorMessage }: { errorMessage?: string }) => {
     )
 }
 
-export default Fallback;
+export default ErrorFallback;

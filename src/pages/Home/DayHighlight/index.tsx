@@ -26,7 +26,7 @@ const DayHighlight: React.FC<DayHighlightProps> = ({ index, day, unit }) => {
                     <Moment format="dd, D/MM">{day?.dt_txt}</Moment>
                 </Typography>
 
-                <Box as="img" src={'http://openweathermap.org/img/w/' + day?.weather[0].icon + '.png'}
+                <Box as="img" src={'https://openweathermap.org/img/w/' + day?.weather[0].icon + '.png'}
                  position="relative" right="-1rem" top="-1rem" />
             </Stack>
 

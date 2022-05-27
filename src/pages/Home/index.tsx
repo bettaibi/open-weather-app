@@ -1,4 +1,4 @@
-import React, {useId} from 'react';
+import React, {useId, useMemo} from 'react';
 import {
   Box,
   Main,
@@ -13,10 +13,13 @@ import { HomeProps } from '../../models/app.model';
 import { getDaysOfWeek } from '../../services/utils';
 import DaysOverview from './DaysOverview';
 
-
 const Home: React.FC<HomeProps> = ({text, unit, list, city}) => {
-  const weekDays = getDaysOfWeek(list);
   const id = useId();
+
+  const weekDays = useMemo(()=> {
+    return getDaysOfWeek(list);
+    
+  }, [city?.name, unit]);
 
   return (
     <Main>

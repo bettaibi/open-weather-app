@@ -9,7 +9,7 @@ import Hidden from '../Hidden';
 const Loading = () => {
 
     return (
-        <Stack>
+        <Stack data-testid="app-loading">
             <Hidden hiddenFor={['xs', 'sm']}>
                 <Box className="spacing px" width="300px" bg="primary"
                     height="100vh" position="sticky" top="0">
@@ -51,8 +51,8 @@ const Loading = () => {
                 </Box>
             </Hidden>
 
-            <Main>
-                <Box as="header" bg="#fff" className="spacing px" py={3} height="128px"
+            <Main as="div">
+                <Box bg="#fff" className="spacing px" py={3} height="128px"
                     borderBottom="1px solid rgba(0,0,0,.12)">
                     {/* HEADER */}
                     <Stack spacing={2} justifyContent="space-between" alignItems="center">

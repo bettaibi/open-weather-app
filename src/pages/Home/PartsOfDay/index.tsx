@@ -20,8 +20,8 @@ import {
 import { WiHumidity } from 'react-icons/wi';
 
 const PartsOfDay = ({ times, isOpen }: { times: WeatherForecastDayProps[], isOpen: boolean }) => {
+
     const id = useId();
-    console.log(times)
 
     return (
         <>

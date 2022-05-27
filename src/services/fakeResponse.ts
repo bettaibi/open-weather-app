@@ -1,6 +1,8 @@
 import { WeatherForecastPayload } from "../models/app.model";
 
-export const fakeResponse: WeatherForecastPayload = {
+export async function getJsonResponse(city: string | null){
+
+  const fakeResponse: WeatherForecastPayload = {
     list: [
       {
         dt: 1653609600,
@@ -1188,11 +1190,14 @@ export const fakeResponse: WeatherForecastPayload = {
       }
     ],
     city: {
-      name: "Tunisia",
+      name: city || "Tunisia",
       sunrise: 1653538581,
       sunset: 1653589562
     }
   }
+
+  return fakeResponse;
+}
       
 
 
