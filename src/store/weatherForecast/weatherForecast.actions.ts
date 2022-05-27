@@ -19,7 +19,7 @@ export const fetchWeatherForcast = createAsyncThunk('weatherForecast/fetchWeathe
     catch (err) {
         // Handle Error
         if (axios.isAxiosError(err) && err.response) {
-            console.log("******rejected with value*****")
+            
             return rejectWithValue(err.response.data);
         } 
         else throw err;

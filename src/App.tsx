@@ -13,7 +13,7 @@ import Sidebar from './components/Sidebar';
 import Stack from './styled/Stack/Stack.styled';
 import TodayHighlight from './pages/TodayHighlight';
 import Loading from './components/Loading';
-import Fallback from './components/Fallback/Fallback';
+import Fallback from './components/Fallback/ErrorFallback';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -23,27 +23,28 @@ function App() {
   const weatherForecast = useAppSelector<WeatherForecastPayload>(state => selectForecastFor(state, city+unit));
   const status = useAppSelector(selectStatus);
   
-  console.log(weatherForecast)
 
   useEffect(()=> {
+
+    async function fetchWeather() {
+      try{
+         await dispatch(fetchWeatherForcast({city, unit})).unwrap();
+      }
+      catch(err: any){
+        /**
+         * Handle Error, When typing a wrong value as a city.
+         *  It is supposed to be a snackbar component instead of a simple alert :)
+        */
+        alert(`Oops, something went wrong, ${err.message}. Would you like to reload?`)
+        window.location.reload();
+      }
+    }
 
     if(!weatherForecast){
       fetchWeather();
     }
 
   }, [city, unit]);
-
-  async function fetchWeather() {
-    try{
-      const res = await dispatch(fetchWeatherForcast({city, unit})).unwrap();
-    }
-    catch(err: any){
-      console.log(err)
-      return (
-        <Fallback errorMessage= {err?.message} />
-      )
-    }
-  }
 
   if(status === STATUS.LOADING || status === STATUS.IDLE || !weatherForecast){
     return (

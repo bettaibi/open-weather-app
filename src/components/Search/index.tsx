@@ -17,7 +17,7 @@ const Search = ({text}: {text: string}) => {
 
     const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if(event.key === 'Enter'){
-            dispatch(updateCity(value.toLowerCase()));
+            dispatch(updateCity(value.trim().toLowerCase()));
         }
     }
 

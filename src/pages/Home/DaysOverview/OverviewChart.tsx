@@ -22,7 +22,7 @@ const OverviewChart: React.FC<Pick<HomeProps, 'weekDays'>> = ({ weekDays }) => {
       if(!config) return;
       setApexConfig(config);
     }
-  }, []);
+  }, [weekDays]);
 
   function getData() {
     if (!weekDays?.[0]) return;

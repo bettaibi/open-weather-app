@@ -14,7 +14,7 @@ type OverviewProps = Pick<HomeProps, 'weekDays' | 'list'>;
 const DaysOverview: React.FC<OverviewProps> = ({ weekDays, list }) => {
     const groupedList = groubByDay(list);
     const id = useId();
-
+ 
     return (
         <React.Fragment>
             <Typography size="1.2rem" fontWeight={500} p={2} mb={2}>
