@@ -3,7 +3,7 @@
  */
 
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { UnitProps } from '../../models/app.model';
+import { UnitProps, WeatherForecastPayload } from '../../models/app.model';
 import { config } from '../../services/config';
 import axios from "axios";
 
@@ -14,12 +14,11 @@ export const fetchWeatherForcast = createAsyncThunk('weatherForecast/fetchWeathe
  async ({city, unit}: {city: string, unit: UnitProps}, { rejectWithValue }) => {
     try {
         const res = await axios.get(url, { params: { q: city, units: unit, appid } });
-        if(res.status === 200) return res.data;
+        if(res.status === 200) return {data: {...res.data} as WeatherForecastPayload, id:city+unit};
     }
     catch (err) {
         // Handle Error
         if (axios.isAxiosError(err) && err.response) {
-            
             return rejectWithValue(err.response.data);
         } 
         else throw err;

@@ -21,7 +21,7 @@ const ExpandedPanel: React.FC<ExpandedPanelProps> = ({show, content, panel}) => 
         <Box>
             {content}
 
-            <Box style={computedStyle} aria-hidden={show} ref={panelRef}>
+            <Box style={computedStyle} aria-hidden={show} ref={panelRef} data-testid="panel-container">
                 {panel}
             </Box>
         </Box>

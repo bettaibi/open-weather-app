@@ -3,6 +3,8 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
+global.ResizeObserver = require('resize-observer-polyfill');
+
 import { server } from "./mocks/server";
 
 beforeAll(()=> server.listen({
@@ -12,3 +14,4 @@ beforeAll(()=> server.listen({
 beforeEach(()=> server.resetHandlers());
 
 afterAll(()=> server.close());
+

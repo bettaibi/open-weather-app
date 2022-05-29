@@ -8,9 +8,14 @@ import {
 
 import { fetchWeatherForcast } from './weatherForecast.actions';
 
+interface PayloadModel{
+    data: WeatherForecastPayload;
+    id: string;
+}
+
 const initialState: WeatherForecastState = {
     entities : {},
-    status: STATUS.IDLE
+    status: STATUS.LOADING
 }
 
 export const weatherForecastSlice = createSlice({
@@ -22,15 +27,17 @@ export const weatherForecastSlice = createSlice({
         .addCase(fetchWeatherForcast.pending, (state: WeatherForecastState)=> {
             state.status = STATUS.LOADING;
         })
-        .addCase(fetchWeatherForcast.fulfilled, (state: WeatherForecastState, action: PayloadAction<WeatherForecastPayload, string, any>) => {
-            const id = action.meta.arg.city + action.meta.arg.unit;
-            const {city, list} = action.payload;
-            state.entities[id] = {city, list};
-            state.status = STATUS.SUCCEEDED;
+        .addCase(fetchWeatherForcast.fulfilled, (state: WeatherForecastState, action: PayloadAction<PayloadModel | undefined>) => {
+            
+            if(action.payload){
+                const id = action.payload.id;
+                const {city, list} = action.payload.data;
+                state.entities[id] = {city, list};
+                state.status = STATUS.SUCCEEDED;
+            }
         })
         .addCase(fetchWeatherForcast.rejected, (state: WeatherForecastState, action) => {
-            state.status = STATUS.FAILED
-            state.error = action.error.message;
+            state.status = STATUS.FAILED;
         })
     }
 });

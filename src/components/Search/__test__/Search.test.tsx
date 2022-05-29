@@ -11,17 +11,16 @@ const MockedComponent = WithStyledThemeProvider(WithReduxProvider(()=> {
 
 describe('Test Input Search Component', () => {
 
-    afterEach(() => cleanup())
+    afterEach(() => cleanup());
+
+    beforeEach(() => render(<MockedComponent />));
 
     it('should render with an empty text value at the initial rendering', () => {
-        render(<MockedComponent />);
-
         const inputElem = screen.getByPlaceholderText<HTMLInputElement>(/Search for a city/i);
         expect(inputElem.value).toBe('');
     });
 
     it('Input value should change correctly when user typing', ()=> {
-        render(<MockedComponent />);
         const inputElem = screen.getByPlaceholderText<HTMLInputElement>(/Search for a city/i);
         fireEvent.change(inputElem, {target: {value: 'programming is my passion'}});
 

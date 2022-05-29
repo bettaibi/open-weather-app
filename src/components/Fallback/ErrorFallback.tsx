@@ -9,13 +9,13 @@ const ErrorFallback = ({ errorMessage }: { errorMessage?: string }) => {
     }
 
     return (
-        <Box p={4}>
+        <Box p={6}>
             <Typography as="h1">Oops, Something went wrong :(</Typography>
 
-            <Typography as="p">
-                {errorMessage || ''}
+            <Typography as="p" my={2}>
+                {errorMessage || "It seems that city not found"}
             </Typography>
-            <Button color="primary" onClick={handleClick}>Reload</Button>
+            <Button color="#fff" bg="primary" onClick={handleClick}>Reload</Button>
         </Box>
     )
 }

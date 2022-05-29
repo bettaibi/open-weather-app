@@ -1,37 +1,34 @@
-import { render, cleanup, screen, waitFor } from '@testing-library/react';
+import { render, cleanup, screen, fireEvent } from '@testing-library/react';
 import Hidden from './..';
 
 const MockedComponent = () => {
     return (
         <Hidden hiddenFor={["xs", "sm"]}>
-            <p>Some content</p>
+            <div>Some content</div>
         </Hidden>
     )
 }
 
 describe('Test Hidden Component', () => {
 
-    afterEach(() => cleanup())
+    afterEach(cleanup);
 
-    it('should render properly on laptop, desktop and large screen devices', async() => {
+    it('should render properly on laptop, desktop and large screen devices', () => {
         render(<MockedComponent />);
 
-        const elem = screen.queryByRole<HTMLParagraphElement>('paragraph', { name: /Some content/i });
-
-        waitFor(()=> {
-            expect(elem).toBeInTheDocument();
-        })
+        const elem = screen.getByText(/Some content/i);
+        expect(elem).toBeInTheDocument();
     });
 
-    it('component should not render mobile devices', async() => {
+    it('component should not render on mobile devices', () => {
         render(<MockedComponent />);
-        const elem = screen.queryByRole<HTMLParagraphElement>('paragraph', { name: /Some content/i });
-        
-        global.innerWidth = 500;
 
-        waitFor(()=> {
-            expect(elem).toBeInTheDocument();
-        })
+        window.innerWidth = 500
+        window.innerHeight = 500
+
+        fireEvent(window, new Event('resize'));
+  
+        expect(screen.queryByText(/Some content/i)).not.toBeTruthy();
     });
 
 });

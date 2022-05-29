@@ -19,7 +19,8 @@ const DayHighlight: React.FC<DayHighlightProps> = ({ index, day, unit }) => {
             data-id={isToday ? 'today' : index}
             elevation={1} p={2} bg="light" radius="1rem"
             flex='1 0 auto' width={'33.33%'} style={{ minWidth: '200px' }}
-            className={isToday ? 'active' : ''}>
+            className={isToday ? 'active' : ''}
+            data-testid={isToday ? 'today-forecast' : index}>
 
             <Stack alignItems='flex-start' justifyContent='space-between'>
                 <Typography fontWeight={500}>

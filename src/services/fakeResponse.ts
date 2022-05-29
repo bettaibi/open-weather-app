@@ -1,13 +1,14 @@
-import { WeatherForecastPayload } from "../models/app.model";
+import { UnitProps, UNITS, WeatherForecastPayload } from "../models/app.model";
 
-export async function getJsonResponse(city: string | null){
+export async function getJsonResponse(city: string | null, unit: UnitProps | null){
 
   const fakeResponse: WeatherForecastPayload = {
+    // we assume that the first index of the array is represent the forecast of today
     list: [
       {
         dt: 1653609600,
         main: {
-          temp: 27.77,
+          temp: (unit === UNITS.CELSIUS ? 27: (27 * 1.8) + 32) || 27,
           feels_like: 26.67,
           temp_min: 25.53,
           temp_max: 27.77,
@@ -31,7 +32,7 @@ export async function getJsonResponse(city: string | null){
           deg: 273,
           gust: 5.41
         },
-        dt_txt: "2022-05-27 00:00:00"
+        dt_txt: new Date().toISOString()
       },
       {
         dt: 1653620400,
