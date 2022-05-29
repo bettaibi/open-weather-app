@@ -1,4 +1,4 @@
-import { render, cleanup, screen, waitFor, fireEvent } from '@testing-library/react';
+import { render, cleanup, screen, fireEvent } from '@testing-library/react';
 import WithStyledThemeProvider from '../../../hoc/WithStyledThemeProvider';
 import useToggle from '../../../hooks/useToggle';
 import ExpandedPanel from '../ExpandedPanel';
@@ -15,7 +15,7 @@ const MockedComponent = WithStyledThemeProvider(() => {
                     <button onClick={handleToggle}>toggle</button>
                 </div>
             }
-            panel = {
+            panel={
                 <div>
                     <p>
                         Panel prop represent the hidden area
@@ -30,23 +30,22 @@ describe('Test ExpandedPanel Component', () => {
 
     afterEach(() => cleanup())
 
-    it('Panel area should be hidden at the initial rendering', async() => {
+    it('Panel area should be hidden at the initial rendering', () => {
         render(<MockedComponent />);
 
-        const elem = screen.queryByRole<HTMLParagraphElement>('paragraph', { name: /Panel prop represent the hidden area/i });
+        const elem = screen.getByTestId('panel-container');
 
-        waitFor(() => expect(elem).not.toBeVisible());
+        expect(elem).toHaveStyle({height: 0});
 
     });
 
-    it('Panel area should be visible when clicking on the toogle button', async() => {
+    it('Panel area should be visible when clicking on the toogle button', () => {
         render(<MockedComponent />);
-
-        const elem = screen.queryByRole<HTMLParagraphElement>('paragraph', { name: /Panel prop represent the hidden area/i });
-        const toggleBtn = screen.getByRole('button', {name: /toggle/});
+        const elem = screen.getByTestId('panel-container');
+        const toggleBtn = screen.getByRole('button', { name: /toggle/ });
         fireEvent.click(toggleBtn);
 
-        waitFor(() => expect(elem).toBeVisible());
+        expect(elem).toBeVisible();
     });
 
 });

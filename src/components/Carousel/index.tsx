@@ -115,12 +115,12 @@ const Carousel = ({ children }: { children: React.ReactNode }) => {
                 <AnimatePresence>
                     {-(currentX) < leftBoundary &&
                         <Stack position="absolute" bottom="0" right="0" top="0" alignItems="center"
-                            width="fit-content" data-testid="next-btn">
+                            width="fit-content">
                             <FabButton as={motion.button} elevation={1} onClick={next}
                                 initial={{ scale: 0 }}
                                 animate={{ scale: 1 }}
                                 exit={{ scale: 0 }}
-                                
+                                data-testid="next-btn"
                             >
                                 <FaAngleRight />
                             </FabButton>

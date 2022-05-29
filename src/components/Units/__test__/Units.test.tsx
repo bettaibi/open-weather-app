@@ -10,7 +10,7 @@ const MockedComponent = WithStyledThemeProvider(WithReduxProvider(()=> {
     )
 }));
 
-describe('Test tempture Units Component', () => {
+describe('Test Tempture Units Component', () => {
 
     afterEach(() => cleanup())
 
@@ -20,13 +20,4 @@ describe('Test tempture Units Component', () => {
         const btnElem = screen.queryByRole('button', {name: '℃'});
         expect(btnElem).toHaveClass('active');
     });
-
-    // it('Unit should change to Fahrenheit when clicking on its target button', () => {
-    //     render(<MockedComponent />);
-
-    //     const btnElem = screen.getByRole('button', {name: '℉'});
-    //     fireEvent.click(btnElem);
-
-    //     expect(btnElem).toHaveClass('active');
-    // });
 });
