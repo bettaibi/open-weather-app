@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/open-weather-app/static/css/main.b2a3f954.css",
-    "main.js": "/open-weather-app/static/js/main.f502b27d.js",
+    "main.js": "/open-weather-app/static/js/main.c9f92dbd.js",
     "static/media/day.svg": "/open-weather-app/static/media/day.d091aa430446cee98bd0e613761de4fd.svg",
     "static/media/night.svg": "/open-weather-app/static/media/night.0ce81ad21e409b2a1df620196fe7c550.svg",
     "static/media/sunrise.svg": "/open-weather-app/static/media/sunrise.2671a0a19b85c1d10440727fce229fcb.svg",
     "index.html": "/open-weather-app/index.html",
     "static/media/sunset.svg": "/open-weather-app/static/media/sunset.699625c062d9f09f3e5adff3d2f7b36d.svg",
     "main.b2a3f954.css.map": "/open-weather-app/static/css/main.b2a3f954.css.map",
-    "main.f502b27d.js.map": "/open-weather-app/static/js/main.f502b27d.js.map"
+    "main.c9f92dbd.js.map": "/open-weather-app/static/js/main.c9f92dbd.js.map"
   },
   "entrypoints": [
     "static/css/main.b2a3f954.css",
-    "static/js/main.f502b27d.js"
+    "static/js/main.c9f92dbd.js"
   ]
 }
